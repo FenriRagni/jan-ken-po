@@ -17,15 +17,16 @@
 //if win or lose ask if they want to play again
 //if tie keep playing
 
-var opponentChoice = ["rock", "paper", "scissors"];
+var opponentPoss = ["rock", "paper", "scissors"];
 var playerChoice = "";
-
-function randomNumer (size) {
-    var random =Math.floor(Math.random * size);
-    return random;
+var wins, losses, ties = 0;
+function randomNumber (size) {
+    return Math.floor(Math.random() * size);
 }
 
-function playGame(){
+console.log(randomNumber(3));
+
+function playGame() {
     playerChoice = prompt("Choose rock, paper, or scissors\nr for rock, p for paper, s for scissors");
     if(playerChoice === "r"){
         alert("You chose Rock!");
@@ -44,6 +45,24 @@ function playGame(){
         playGame();
         return;
     }
-    
-}
-playGame()
+    var oppenentChoice = opponentPoss[randomNumber(opponentPoss.length)];
+
+    alert("Your opponent chose: " + oppenentChoice);
+
+    if(oppenentChoice === playerChoice) {
+        alert("You tied!")
+        playGame();
+        return;
+    }
+    else if(((playerChoice === "rock") && (oppenentChoice === "scissors")) || 
+    ((playerChoice === "paper") && (oppenentChoice === "rock")) || 
+    ((playerChoice === "scissors") && (oppenentChoice === "paper"))) {
+        alert("You won!");
+    }
+    else if(((playerChoice === "rock") && (oppenentChoice === "paper")) || 
+    ((playerChoice === "paper") && (oppenentChoice === "scissors")) || 
+    ((playerChoice === "scissors") && (oppenentChoice === "rock"))) {
+        alert("You lose!");
+    }
+ }
+playGame();
