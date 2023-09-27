@@ -17,8 +17,33 @@
 //if win or lose ask if they want to play again
 //if tie keep playing
 
+var opponentChoice = ["rock", "paper", "scissors"];
+var playerChoice = "";
+
 function randomNumer (size) {
     var random =Math.floor(Math.random * size);
     return random;
 }
 
+function playGame(){
+    playerChoice = prompt("Choose rock, paper, or scissors\nr for rock, p for paper, s for scissors");
+    if(playerChoice === "r"){
+        alert("You chose Rock!");
+        playerChoice = "rock";
+    }
+    else if(playerChoice === "p"){
+        alert("You chose paper!");
+        playerChoice = "paper";
+    }
+    else if(playerChoice === "s"){
+        alert("You chose scissors!");
+        playerChoice = "scissors";
+    }
+    else{
+        alert("You have not chosen a valid input, pls try again");
+        playGame();
+        return;
+    }
+    
+}
+playGame()
