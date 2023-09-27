@@ -16,18 +16,36 @@
 
 //if win or lose ask if they want to play again
 //if tie keep playing
-
+var playButton = document.querySelector("#play")
 var opponentPoss = ["rock", "paper", "scissors"];
 var playerChoice = "";
-var wins, losses, ties = 0;
+var [wins, losses, ties] = [0,0,0];
 function randomNumber (size) {
     return Math.floor(Math.random() * size);
 }
 
-console.log(randomNumber(3));
+function tally () {
+    alert("Wins: " + wins + "\nLosses: " + losses + "\nTies: " + ties);
+}
+
+function playAgain() {
+    if(confirm("Do you wish to play again? \n(Okay for yes, Cancel for no)")) {
+        playGame();
+    }
+    else {
+        return;
+    }
+}
 
 function playGame() {
     playerChoice = prompt("Choose rock, paper, or scissors\nr for rock, p for paper, s for scissors");
+    if(playerChoice === null) {
+        alert("You have not chosen a valid input, pls try again");
+        playGame();
+        return;
+    }
+
+    playerChoice = playerChoice.toLowerCase();
     if(playerChoice === "r"){
         alert("You chose Rock!");
         playerChoice = "rock";
@@ -51,6 +69,8 @@ function playGame() {
 
     if(oppenentChoice === playerChoice) {
         alert("You tied!")
+        ties++;
+        tally();
         playGame();
         return;
     }
@@ -58,11 +78,16 @@ function playGame() {
     ((playerChoice === "paper") && (oppenentChoice === "rock")) || 
     ((playerChoice === "scissors") && (oppenentChoice === "paper"))) {
         alert("You won!");
+        wins++;
+        tally();
+        playAgain();
     }
-    else if(((playerChoice === "rock") && (oppenentChoice === "paper")) || 
-    ((playerChoice === "paper") && (oppenentChoice === "scissors")) || 
-    ((playerChoice === "scissors") && (oppenentChoice === "rock"))) {
+    else {
         alert("You lose!");
+        losses++;
+        tally();
+        playAgain();
     }
  }
-playGame();
+
+ playButton.addEventListener("click", playGame);
